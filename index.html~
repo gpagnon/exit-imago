@@ -131,12 +131,12 @@
 
         <section class="about" id="about">
             <h2>about</h2>
-            <p>A photography portfolio by Giuseppe Pagnoni. </p>
+            <p>a photography portfolio by giuseppe pagnoni</p>
         </section>
     </main>
 
     <footer id="contact">
-        <p>© 2024 Your Name</p>
+        <p>© 2024 giuseppe pagnoni</p>
     </footer>
 </body>
 </html>
