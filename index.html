@@ -17,42 +17,53 @@
             line-height: 1.6;
             color: #333;
             background: #fff;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Navigation */
-        nav {
-            padding: 2rem 0;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        nav ul {
-            list-style: none;
             display: flex;
-            gap: 2rem;
+            height: 100vh;
         }
 
-        nav a {
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #f5f5f5;
+            padding: 2rem;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5em;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar a {
             text-decoration: none;
             color: #333;
-            text-transform: lowercase;
-            letter-spacing: 0.05em;
             transition: color 0.3s ease;
         }
 
-        nav a:hover {
+        .sidebar a:hover {
             color: #888;
         }
 
-        /* Gallery Grid */
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
         .gallery {
-            display: grid;
+            display: none;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
-            padding: 0 0 4rem 0;
         }
 
         .gallery-item {
@@ -78,137 +89,144 @@
             margin-top: 5px;
         }
 
-        /* About section */
-        .about {
-            max-width: 600px;
-            margin: 4rem 0;
-            padding: 2rem 0;
-            border-top: 1px solid #eee;
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
 
-        .about h2 {
-            margin-bottom: 1rem;
-            font-weight: normal;
-            letter-spacing: 0.05em;
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
         }
 
-        /* Tags */
-        .tags {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .tags span {
-            display: inline-block;
-            margin: 5px;
-            padding: 5px 10px;
-            background: #eee;
-            border-radius: 5px;
+        .lightbox .close, .lightbox .prev, .lightbox .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            padding: 1rem;
             cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
         }
 
-        /* Footer */
-        footer {
-            padding: 2rem 0;
-            color: #888;
-            font-size: 0.9rem;
-            border-top: 1px solid #eee;
+        .lightbox .close {
+            right: 20px;
+            top: 20px;
+            transform: none;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
+        .lightbox .prev {
+            left: 20px;
+        }
 
-            .gallery {
-                gap: 1rem;
-            }
+        .lightbox .next {
+            right: 20px;
         }
     </style>
 </head>
 <body>
-    <nav>
+    <div class="sidebar">
+        <h2>Projects</h2>
         <ul>
-            <li><a href="#landscape">landscape</a></li>
-            <li><a href="#portrait">portrait</a></li>
-            <li><a href="#wildlife">wildlife</a></li>
-            <li><a href="#about">about</a></li>
-            <li><a href="#contact">contact</a></li>
+            <li><a href="#" onclick="showGallery('landscape')">Landscape</a></li>
+            <li><a href="#" onclick="showGallery('portrait')">Portrait</a></li>
+            <li><a href="#" onclick="showGallery('wildlife')">Wildlife</a></li>
+            <!-- Add more projects as needed -->
         </ul>
-    </nav>
-
-    <div class="tags">
-        <span onclick="filterByTag('landscape')">Landscape</span>
-        <span onclick="filterByTag('portrait')">Portrait</span>
-        <span onclick="filterByTag('wildlife')">Wildlife</span>
-        <!-- Add more tags as needed -->
     </div>
 
-    <main>
-        <section class="gallery" id="landscape">
-            <h2>Landscape Photography</h2>
-            <p>A collection of my best landscape shots.</p>
-            <div class="gallery-item" data-tags="landscape">
+    <div class="main-content">
+        <div class="gallery" id="landscape">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <img src="images/landscape/landscape1.jpg" alt="Landscape 1">
                 <div class="caption">Sunset over the mountains</div>
             </div>
-            <div class="gallery-item" data-tags="landscape">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <img src="images/landscape/landscape2.jpg" alt="Landscape 2">
                 <div class="caption">Calm lake at dawn</div>
             </div>
             <!-- Add more photos as needed -->
-        </section>
+        </div>
 
-        <section class="gallery" id="portrait">
-            <h2>Portrait Photography</h2>
-            <p>Capturing the essence of people.</p>
-            <div class="gallery-item" data-tags="portrait">
+        <div class="gallery" id="portrait">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <img src="images/portrait/portrait1.jpg" alt="Portrait 1">
                 <div class="caption">Smiling woman in the park</div>
             </div>
-            <div class="gallery-item" data-tags="portrait">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <img src="images/portrait/portrait2.jpg" alt="Portrait 2">
                 <div class="caption">Man with a hat</div>
             </div>
             <!-- Add more photos as needed -->
-        </section>
+        </div>
 
-        <section class="gallery" id="wildlife">
-            <h2>Wildlife Photography</h2>
-            <p>Moments from the wild.</p>
-            <div class="gallery-item" data-tags="wildlife">
+        <div class="gallery" id="wildlife">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <img src="images/wildlife/wildlife1.jpg" alt="Wildlife 1">
                 <div class="caption">Eagle in flight</div>
             </div>
-            <div class="gallery-item" data-tags="wildlife">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <img src="images/wildlife/wildlife2.jpg" alt="Wildlife 2">
                 <div class="caption">Deer in the forest</div>
             </div>
             <!-- Add more photos as needed -->
-        </section>
+        </div>
+    </div>
 
-        <section class="about" id="about">
-            <h2>about</h2>
-            <p>Your introduction and artist statement will go here. This space can be used to share your perspective and approach to photography.</p>
-        </section>
-    </main>
-
-    <footer id="contact">
-        <p>© 2024 Your Name</p>
-    </footer>
+    <div class="lightbox" id="lightbox">
+        <button class="close" onclick="closeLightbox()">×</button>
+        <button class="prev" onclick="changePhoto(-1)">❮</button>
+        <img src="" alt="Enlarged photo">
+        <button class="next" onclick="changePhoto(1)">❯</button>
+    </div>
 
     <script>
-        function filterByTag(tag) {
-            const items = document.querySelectorAll('.gallery-item');
-            items.forEach(item => {
-                if (item.dataset.tags.includes(tag)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+        function showGallery(galleryId) {
+            const galleries = document.querySelectorAll('.gallery');
+            galleries.forEach(gallery => {
+                gallery.style.display = gallery.id === galleryId ? 'grid' : 'none';
             });
+        }
+
+        function openLightbox(element) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = lightbox.querySelector('img');
+            lightboxImage.src = element.querySelector('img').src;
+            lightbox.style.display = 'flex';
+            lightbox.dataset.currentIndex = Array.from(element.parentElement.children).indexOf(element);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function changePhoto(direction) {
+            const lightbox = document.getElementById('lightbox');
+            const currentIndex = parseInt(lightbox.dataset.currentIndex, 10);
+            const gallery = document.querySelector('.gallery[style*="grid"]');
+            const items = gallery.querySelectorAll('.gallery-item');
+            let newIndex = currentIndex + direction;
+
+            if (newIndex < 0) {
+                newIndex = items.length - 1;
+            } else if (newIndex >= items.length) {
+                newIndex = 0;
+            }
+
+            lightbox.querySelector('img').src = items[newIndex].querySelector('img').src;
+            lightbox.dataset.currentIndex = newIndex;
         }
     </script>
 </body>
 </html>
+
